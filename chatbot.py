@@ -11,9 +11,9 @@ bot= ChatBot('Jarvis')
 
 trainer = ListTrainer(bot)
 
-for file in os.listdir('C:/Users/Anonymous/Desktop/ChatBot/data/'):
+for file in os.listdir('C:/Users/Anonymous/Desktop/ChatBot-Flask/data/'):
 
-    chats = open('C:/Users/Anonymous/Desktop/ChatBot/data/' + file, 'r').readlines()
+    chats = open('C:/Users/Anonymous/Desktop/ChatBot-Flask/data/' + file, 'r').readlines()
 
     trainer.train(chats)
 
@@ -50,7 +50,7 @@ def ask():
             try:
                 url  = "https://en.wikipedia.org/wiki/"+ message
                 page = get(url).text
-                soup = BeautifulSoup(page,"lxml")
+                soup = BeautifulSoup(page,"html.parser")
                 p    = soup.find_all("p")
                 return jsonify({'status':'OK','answer':p[1].text})
 
@@ -62,4 +62,4 @@ def ask():
                 return jsonify({'status':'OK','answer':bot_response})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run()
